@@ -1,0 +1,27 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <?php
+require_once('connect.php');
+
+$fname = $_POST['firstname'];
+$lname = $_POST['lastname'];
+$uname = $_POST['username'];
+$pword = $_POST['password'];
+$hash = password_hash($pword, PASSWORD_DEFAULT);
+        
+$sql = "INSERT INTO useraccounts (fname, lname, username, password) VALUES ('$fname', '$lname', '$uname', '$hash')";
+
+if ($conn->query($sql) === TRUE){
+    echo "SIGNUP SUCCESSFUL!!!";
+}else{
+    echo "Sign up failed";
+}
+$conn->close();
+
+?>
+        <title>Sign Up Successful</title>
+        <!-- <meta http-equiv="refresh" content="0; URL='localhost/emailwebsite'" /> -->
+    </head>
+</html>
