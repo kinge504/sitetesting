@@ -1,0 +1,19 @@
+<?php
+    require_once('connect.php');
+
+    $uname = $_POST['username'];
+    $pword = $_POST['password'];
+    $hash = password_hash($pword, PASSWORD_DEFAULT);
+
+    try{
+        $stmt = $conn->prepare("SELECT * FROM useraccounts WHERE username = ? AND password = ?");
+        $stmt->bind_param("ss", $uname, $hash);
+        $stmt->execute();
+            
+        $stmt->close();
+        $conn->close();
+    }catch(PDOException $e){
+        echo "Error: " . $e->getMessage();
+    }
+
+?>
